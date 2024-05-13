@@ -22,9 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InfpAtivity"/>
-        <activity android:name=".IsfjActivity"/>
-
+        <activity android:name=".MbtiActivity"/>
     </application>
 
 </manifest>

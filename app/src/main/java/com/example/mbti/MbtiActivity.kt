@@ -22,25 +22,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mbti.ui.theme.MBTITheme
 
-class InfpAtivity : ComponentActivity() {
+class MbtiActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MBTITheme {
-                InfpMainScreen()
+                val mbtiData = intent.getStringExtra("mbti_data") ?: ""
+                MainScreen(mbtiData)
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun InfpMainScreen() {
+fun MainScreen(mbtiData : String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,14 +53,22 @@ fun InfpMainScreen() {
             Text(
                 modifier = Modifier
                     .align(Alignment.TopCenter),
-                text = "INFP (열정적인 중재자)",
+                text = mbtiData,
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold
             )
         }
 
-        Infp_mainIMG()
-        Infp_desIMG()
+        when(mbtiData){
+            "INFP" -> Column{
+                Painting(paintId = R.drawable.infp1)
+                Painting(paintId = R.drawable.infp2)
+            }
+            "ISFJ" -> Column{
+                Painting(paintId = R.drawable.isfj1)
+                Painting(paintId = R.drawable.isfj2)
+            }
+        }
 
         Row {
             val context = LocalContext.current as? Activity
@@ -77,23 +85,12 @@ fun InfpMainScreen() {
     }
 }
 
-@Composable
-fun Infp_mainIMG() {
-    Image(
-        painter = painterResource(id = R.drawable.infp_character),
-        contentDescription = "infp",
-        modifier = Modifier
-            .fillMaxWidth()
-            .size(width = 10.dp, height = 300.dp)
-            .padding(top = 10.dp)
-    )
-}
 
 @Composable
-fun Infp_desIMG() {
+fun Painting(paintId: Int) {
     Image(
-        painter = painterResource(id = R.drawable.des_infp),
-        contentDescription = "descript_infp",
+        painter = painterResource(id = paintId),
+        contentDescription = "",
         modifier = Modifier
             .fillMaxWidth()
             .size(width = 10.dp, height = 300.dp)

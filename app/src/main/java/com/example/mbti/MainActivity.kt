@@ -1,5 +1,6 @@
 package com.example.mbti
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -33,31 +34,7 @@ class MainActivity : ComponentActivity() {
                         .padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    val context = LocalContext.current
-
-                    Button(
-                        onClick = {
-                            val intent = Intent(context, InfpAtivity::class.java)
-                            context.startActivity(intent)},
-                        modifier = Modifier
-                            .size(300.dp, 50.dp)
-                            .padding(top = 10.dp),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text("INFP")
-                    }
-
-                    Button(
-                        onClick = {
-                            val intent = Intent(context, IsfjActivity::class.java)
-                            context.startActivity(intent)},
-                        modifier = Modifier
-                            .size(300.dp, 50.dp)
-                            .padding(top = 10.dp),
-                        shape = RoundedCornerShape(10.dp)
-                    ) {
-                        Text("INFJ")
-                    }
+                    MainScreen()
 
                     Button(
                         onClick = {
@@ -77,6 +54,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun Preview() {
@@ -85,52 +63,26 @@ fun Preview() {
 
 @Composable
 fun MainScreen() {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    val context = LocalContext.current
+
+    MbtiButton(javaclass = MbtiActivity::class.java, "INFP")
+    MbtiButton(javaclass = MbtiActivity::class.java, "INFJ")
+    MbtiButton(javaclass = MbtiActivity::class.java, "ISFJ")
+}
+
+@Composable
+fun MbtiButton(javaclass: Class<*>, str: String) {
+    val context = LocalContext.current as? Activity
+    Button(
+        onClick = {
+            val intent = Intent(context, javaclass)
+            intent.putExtra("mbti_data", str)
+            context?.startActivity(intent)
+        }, modifier = Modifier
+            .size(300.dp, 50.dp)
+            .padding(top = 10.dp),
+        shape = RoundedCornerShape(10.dp)
     ) {
-        val context = LocalContext.current
-
-        Button(
-            onClick = {
-                val intent = Intent(context, InfpAtivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .size(300.dp, 50.dp)
-                .padding(top = 10.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Text("INFP")
-        }
-
-        Button(
-            onClick = {
-                val intent = Intent(context, IsfjActivity::class.java)
-                context.startActivity(intent)
-            },
-            modifier = Modifier
-                .size(300.dp, 50.dp)
-                .padding(top = 10.dp),
-            shape = RoundedCornerShape(10.dp)
-        ) {
-            Text("INFJ")
-        }
-
-        Button(
-            onClick = {
-//            finish()
-            },
-            modifier = Modifier
-                .size(300.dp, 50.dp)
-                .padding(top = 10.dp),
-            shape = RoundedCornerShape(10.dp)
-        )
-        {
-            Text(text = "앱 종료", fontSize = 10.sp)
-        }
+        Text(text = str)
     }
 }
