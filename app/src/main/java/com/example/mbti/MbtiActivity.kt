@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +38,7 @@ class MbtiActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+
             MBTITheme {
                 val mbtiData = intent.getStringExtra("mbti_data") ?: ""
 
@@ -48,12 +51,15 @@ class MbtiActivity : ComponentActivity() {
 //@Preview(showBackground = true)
 @Composable
 fun MainScreen(mbtiData: String) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
             .padding(start = 8.dp, end = 8.dp)
+
             .background(color = Color.White), horizontalAlignment = Alignment.CenterHorizontally
+
     ) {
         Box {
             Text(
@@ -94,7 +100,7 @@ fun MainScreen(mbtiData: String) {
                 modifier = Modifier
                     .width(184.dp)
                     .height(105.dp)
-                    .padding(top = 40.dp, bottom = 10.dp)
+                    .padding(top = 40.dp)
             ) {
                 Text(text = "이전 화면으로", fontSize = 20.sp, fontWeight = FontWeight.Bold)
             }
@@ -113,8 +119,8 @@ fun Painting(paintId: Int) {
         contentScale = ContentScale.FillBounds,
         modifier = Modifier
 //            .fillMaxWidth()
-            .height(600.dp)
-            .padding(top = 20.dp, bottom = 10.dp)
+            .height(560.dp)
+            .padding(top = 20.dp)
     )
 }
 
@@ -133,7 +139,7 @@ fun MyButton(mbtitext: String) {
         modifier = Modifier
             .width(184.dp)
             .height(105.dp)
-            .padding(top = 40.dp, bottom = 10.dp)
+            .padding(top = 40.dp)
     ) {
         Text(text = "${mbtitext} 추가 정보", fontSize = 20.sp, fontWeight = FontWeight.Bold)
     }

@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,11 +31,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MBTITheme {
+                val scrollState = rememberScrollState()
                 Column(
                     Modifier
                         .fillMaxWidth()
                         .fillMaxHeight()
-                        .padding(20.dp),
+                        .padding(20.dp)
+                         .verticalScroll(scrollState),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     MainScreen()
@@ -47,7 +52,7 @@ class MainActivity : ComponentActivity() {
                         shape = RoundedCornerShape(10.dp)
                     )
                     {
-                        Text(text = "앱 종료", fontSize = 10.sp)
+                        Text(text = "앱 종료", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -68,9 +73,15 @@ fun MainScreen() {
 
     TopTextView("16가지 다양한 MBTI들")
 
-    MbtiButton(javaclass = MbtiActivity::class.java, "INFP")
-    MbtiButton(javaclass = MbtiActivity::class.java, "INFJ")
-    MbtiButton(javaclass = MbtiActivity::class.java, "ISFJ")
+    val mbtiTypes = listOf(
+        "ISTJ", "ISFJ", "INFJ", "INTJ",
+        "ISTP", "ISFP", "INFP", "INTP",
+        "ESTP", "ESFP", "ENFP", "ENTP",
+        "ESTJ", "ESFJ", "ENFJ", "ENTJ"
+    )
+    for (mbtiType in mbtiTypes) {
+        MbtiButton(javaclass = MbtiActivity::class.java, mbtiType)
+    }
 }
 
 @Composable
@@ -91,6 +102,6 @@ fun MbtiButton(javaclass: Class<*>, str: String) {
             .padding(top = 10.dp),
         shape = RoundedCornerShape(10.dp)
     ) {
-        Text(text = str)
+        Text(text = str, fontSize = 16.sp, fontWeight = FontWeight.Bold)
     }
 }
